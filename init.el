@@ -37,12 +37,12 @@
 
 ;; Load custom functions
 (load-file "~/.emacs.d/custom-functions.el")
-;; Load keybindings
-(load-file "~/.emacs.d/keybindings.el")
 ;; Load appearance tweaks
 (load-file "~/.emacs.d/appearance.el")
 ;; Load dired config (TODO: Defer until dired started)
 (load-file "~/.emacs.d/dired-settings.el")
+;; Load keybindings
+(load-file "~/.emacs.d/keybindings.el")
 ;; Load LSP config (TODO: Defer until prog-mode-hook)
 (load-file "~/.emacs.d/lsp.el")
 
@@ -89,6 +89,11 @@
   (show-paren-mode 1))
 
 ;;;;; EDITOR CONFIG ;;;;;;
+
+;; Allow ess-mode (for R and other bullshit) to extend markdown mode
+(require 'poly-R)
+;; Jupyter Notebooks
+(require 'ein)
 
 ;; Drag stuf around with alt
 (require 'drag-stuff)

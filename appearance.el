@@ -7,14 +7,14 @@
 (tool-bar-mode -1)          ; Disable the toolbar
 (tooltip-mode -1)           ; Disable tooltips
 (set-fringe-mode 10)        ; Give some breathing room
-(column-number-mode 1)      ; Show column numberq
-(menu-bar-mode -1)            ; Disable the menu bar
+(column-number-mode 1)      ; Show column numbers
+(menu-bar-mode -1)          ; Disable the menu bar
 
 (add-hook 'prog-mode-hook 'display-line-numbers-mode)
 
 ;; Fancy themes
 (use-package doom-themes :defer t)
-(load-theme 'doom-catppuccin t)
+(load-theme 'catppuccin t)
 (doom-themes-visual-bell-config)
 
 ;; Catppuccin settings
@@ -27,6 +27,7 @@
 
 ;; Fancy font
 (set-frame-font "MonoLisa 12")
+;;(set-frame-font "Maple Mono 14")
 
 (use-package minions
   :hook (doom-modeline-mode . minions-mode))

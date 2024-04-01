@@ -9,8 +9,12 @@
 (global-unset-key (kbd "C-z"))
 
 (multistate-define-state
+ 'toplayer)
+
+(multistate-define-state
  'normal
  :lighter "N"
+ :parent 'multistate-toplayer-state-map
  :default t)
 
 (multistate-define-state
@@ -27,7 +31,23 @@
 (add-hook 'prog-mode-hook 'multistate-mode)
 (add-hook 'dashboard-mode-hook 'multistate-mode)
 (add-hook 'vterm-mode 'multistate-mode)
-;; (add-hook 'dired-mode-hook 'multistate-mode)
+
+;; Create "toplayer" keymap for keybindings we want to be the same everywhere
+(defkey multistate-toplayer-state-map
+  "i" 'ibuffer
+  ;; Windows
+  "x d" 'split-window-right
+  "x s" 'split-window-below
+  "x z" 'delete-window
+  "x h e" 'enlarge-window-horizontally
+  "x h s" 'shrink-window-horizontally
+  "x e" 'enlarge-window
+  "x r" 'other-window
+  "C-j" 'windmove-down
+  "C-k" 'windmove-up)
+
+;; Have dired modemap inherit from toplayer
+;;(set-keymap-parent dired-mode-map multistate-toplayer-state-map)
 
 (defkey multistate-normal-state-map
   ;; Switch state
@@ -50,16 +70,6 @@
   "C-q" 'beginning-of-line
   "C-e" 'end-of-line
   "C-x C-x" 'exchange-point-and-mark
-  ;; Windows
-  "x d" 'split-window-right
-  "x s" 'split-window-below
-  "x z" 'delete-window
-  "x h e" 'enlarge-window-horizontally
-  "x h s" 'shrink-window-horizontally
-  "x e" 'enlarge-window
-  "x r" 'other-window
-  "C-j" 'windmove-down
-  "C-k" 'windmove-up
   ;; Dired
   "x f" 'dired
   "x g" 'dired-jump
@@ -79,20 +89,22 @@
   "D c" 'crux-duplicate-and-comment-current-line-or-region
   "," 'comment-or-uncomment-region
   ;; Line
-  "S-l" 'goto-line
-  ;; "S-l d" 'display-line-numbers-mode
+  "L l" 'goto-line
+  "L d" 'display-line-numbers-mode
   ;; Eval code
   "e r" 'eval-region
   "e b" 'eval-buffer
   "e R" 'crux-eval-and-replace
-  ;; Project/Programming tools
-  "c f" 'hs-toggle-hiding
+  ;; Magit
+  "g s" 'magit-status
+  ;; ? tools
+  "f" 'hs-toggle-hiding
   "c j" 'meghanada-jump-declaration
   "c s" 'isearch-forward
-  ;;
   "M-<return>" 'vterm
   "M-S-<return>" 'xah-open-file-at-cursor
   "C-<delete>" 'sp-delete-word
+  ;; Buffers
   "b s" 'switch-to-buffer
   "b k" 'kill-buffer)
 
